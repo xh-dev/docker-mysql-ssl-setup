@@ -8,36 +8,15 @@ Main step from this [website](https://docs.cpanel.net/knowledge-base/security/ho
     ```shell
     git clone https://github.com/xh-dev/docker-mysql-ssl-setup
     cd docker-mysql-ssl-setup # project root
+    chmod +x *.sh
     ```
-2. Generate script for creating certificates
+2. Execute the script
     ```shell
-    # go project 
-    # replace ???? with the domain of you target db and generation run.sh scripts
-    sed 's/{base_domain}/????/g' ssl/run.sh_template > ssl/run.sh
-    chmod +x ssl/run.sh
-    ```
-3. Execute script for creating the certificates
-    ```shell
-    cd ssl
-    ./run.sh  # 8 certificates related script is generated
-    ```
-4. Fix the permission issue (**Optional**)
-    ```shell
-    # Incase see below warning in the log file
-    # 
-    # Warning: World-writable config file '/etc/my.cnf' is ignored
-    #
-
-    chmod 0444 my.cnf # restrict the permission setting
-    ```
-5. Execute the docker compose files
-    ```shell
-    cd .. # go to project root
-    docker compose up 
+    ./run.sh {domain name}
     ```
 6. Check if success connect the database with mysql workbench or amdin web portal
 ![](docs/test-mysql-workbench.PNG)
-![](docs/adminer.PNG)
+will add phpmyadmin screen later on.
 
 # Helps commands
 
