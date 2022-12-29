@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+  mysql:
+    # build:
+    #   context: .
+    # image: cust-mysql
+    image: mysql:5.7.40
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Abcd1234
+    volumes:
+      - "./certs:/certs"
+      - "./my.cnf:/etc/my.cnf"
+    networks:
+      - mysql-network
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - mysql
+  #   networks:
+  #     - mysql-network
+  pma:
+    image: phpmyadmin/phpmyadmin:4.7
+    restart: unless-stopped
+    environment:
+      - PMA_HOST=mysql.example.com
+    volumes:
+      - ./phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+      - ./certs/ca-cert.pem:/etc/phpmyadmin/ca-cert.pem
+      - ./certs/client-cert.pem:/etc/phpmyadmin/client-cert.pem
+      - ./certs/client-key.pem:/etc/phpmyadmin/client-key.pem
+    ports:
+      - "8080:80"
+    networks:
+      - mysql-network
+    links:
+      - mysql:mysql.example.com
+    depends_on:
+      - mysql
+networks:
+  mysql-network:
+    driver: bridge

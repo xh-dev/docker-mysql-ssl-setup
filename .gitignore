@@ -1,2 +1,4 @@
 ssl/certs
 ssl/run.sh
+mysql/certs
+mysql/docker-compose.yml

@@ -14,6 +14,7 @@ Main step from this [website](https://docs.cpanel.net/knowledge-base/security/ho
     # go project 
     # replace ???? with the domain of you target db and generation run.sh scripts
     sed 's/{base_domain}/????/g' ssl/run.sh_template > ssl/run.sh
+    chmod +x ssl/run.sh
     ```
 3. Execute script for creating the certificates
     ```shell
@@ -37,3 +38,15 @@ Main step from this [website](https://docs.cpanel.net/knowledge-base/security/ho
 6. Check if success connect the database with mysql workbench or amdin web portal
 ![](docs/test-mysql-workbench.PNG)
 ![](docs/adminer.PNG)
+
+# Helps commands
+
+Show version of mysql
+```sql
+SHOW VARIABLES LIKE 'version';
+```
+
+```sql
+SELECT * FROM performance_schema.session_status 
+WHERE VARIABLE_NAME IN ('Ssl_version','Ssl_cipher');
+```
