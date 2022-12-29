@@ -1,10 +1,11 @@
 version: "3.9"
 services:
   mysql:
-    # build:
-    #   context: .
-    # image: cust-mysql
-    image: mysql:5.7.40
+    build:
+      context: mysql
+      args:
+        - progress=plain
+    restart: unless-stopped
     ports:
       - "3307:3306"
     environment:
@@ -14,20 +15,14 @@ services:
       - "./my.cnf:/etc/my.cnf"
     networks:
       - mysql-network
-  # adminer:
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
-  #   depends_on:
-  #     - mysql
-  #   networks:
-  #     - mysql-network
   pma:
-    image: phpmyadmin/phpmyadmin:4.7
+    build:
+      context: pma
+      args:
+        - progress=plain
     restart: unless-stopped
     environment:
-      - PMA_HOST=mysql.example.com
+      - PMA_HOST=mysql.{{host}}
     volumes:
       - ./phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
       - ./certs/ca-cert.pem:/etc/phpmyadmin/ca-cert.pem
@@ -38,7 +33,7 @@ services:
     networks:
       - mysql-network
     links:
-      - mysql:mysql.example.com
+      - mysql:mysql.{{host}}
     depends_on:
       - mysql
 networks:
