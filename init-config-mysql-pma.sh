@@ -13,7 +13,7 @@ echo "remove docker compose first"
 rm docker-compose.yml
 
 echo "regen docker compose first"
-sed "s/{{host}}/${domainName}/g" docker-compose.yml_template > docker-compose.yml
+sed "s/{{host}}/${domainName}/g" template-docker-compose.yml > docker-compose.yml
 popd
 
 

@@ -12,19 +12,21 @@ services:
       - MYSQL_ROOT_PASSWORD=Abcd1234
     volumes:
       - "./certs:/certs"
-      - "./my.cnf:/etc/my.cnf"
+      - "./mysqlResources/my.cnf:/etc/my.cnf"
+      - "./mysqlResources/data:/var/lib/mysql"
+      - "./mysqlResources/log:/var/log"
     networks:
       - mysql-network
   pma:
     build:
-      context: pma
+      context: phpMyAdmin
       args:
         - progress=plain
     restart: unless-stopped
     environment:
       - PMA_HOST=mysql.{{host}}
     volumes:
-      - ./phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+      - ./phpMyAdminResources/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
       - ./certs/ca-cert.pem:/etc/phpmyadmin/ca-cert.pem
       - ./certs/client-cert.pem:/etc/phpmyadmin/client-cert.pem
       - ./certs/client-key.pem:/etc/phpmyadmin/client-key.pem
