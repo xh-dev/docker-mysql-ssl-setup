@@ -12,7 +12,10 @@ Main step from this [website](https://docs.cpanel.net/knowledge-base/security/ho
     ```
 2. Execute the script
     ```shell
-    ./run.sh {domain name}
+    ./gen-ssl.sh {domain name}
+    ./copy-certs.sh
+    ./init-config-mysql-pma.sh {domain name}
+    ./start-mysql-pma-services.sh
     ```
 6. Check if success connect the database with mysql workbench or amdin web portal
 ![](docs/test-mysql-workbench.PNG)
