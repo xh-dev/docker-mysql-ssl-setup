@@ -7,6 +7,8 @@ else
     echo "Generating SSL for domain: $1"
 fi
 
+domainName=$1
+
 pushd "$(pwd)/mysql"
 
 echo "remove docker compose first"
