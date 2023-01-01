@@ -24,7 +24,7 @@ services:
         - progress=plain
     restart: unless-stopped
     environment:
-      - PMA_HOST=client.{{host}}
+      - PMA_HOST=mysql.{{host}}    # the mysql db host that this phpmyadmin is connecting to 
     volumes:
       - ./phpMyAdminResources/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
       - ./certs/ca-cert.pem:/etc/phpmyadmin/ca-cert.pem
